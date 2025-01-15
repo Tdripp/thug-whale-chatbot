@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thug Whale Chatbot Prototype</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1b1b1b;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-widget {
+            width: 350px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .chat-header {
+            background: #3a3a3a;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .chat-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .chat-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: gold;
+        }
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #1b1b1b;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .message.user {
+            text-align: right;
+            color: #4caf50;
+        }
+        .message.bot {
+            text-align: left;
+            color: #f1c40f;
+        }
+        .chat-footer {
+            padding: 10px;
+            background: #3a3a3a;
+            display: flex;
+            align-items: center;
+        }
+        .chat-footer input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .chat-footer button {
+            padding: 10px 15px;
+            background: gold;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-widget">
+        <div class="chat-header">
+            <img src="avatar.png" alt="Thug Whale">
+            <h3>Crypto Whale</h3>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">Yo, what's good? Ask me anything about crypto!</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="user-input" placeholder="Type your question...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const userMessage = userInput.value.trim();
+
+            if (userMessage) {
+                // Display user message
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.className = 'message user';
+                userMessageDiv.textContent = userMessage;
+                chatMessages.appendChild(userMessageDiv);
+
+                // Generate bot response
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'message bot';
+                botMessageDiv.textContent = generateBotResponse(userMessage);
+                chatMessages.appendChild(botMessageDiv);
+
+                // Clear input
+                userInput.value = '';
+
+                // Auto-scroll to the latest message
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        function generateBotResponse(userMessage) {
+            // Placeholder for bot responses
+            const responses = {
+                'bitcoin': "Bitcoin's sittin' at $35,000. You ridin' the wave?",
+                'ethereum': "Ethereum's chillin' at $2,400. Solid gains, my friend.",
+                'dogecoin': "Dogecoin's barkin' at $0.07. To the moon or nah?",
+            };
+
+            // Match keyword in user message
+            for (const keyword in responses) {
+                if (userMessage.toLowerCase().includes(keyword)) {
+                    return responses[keyword];
+                }
+            }
+
+            return "I ain't got data on that yet, but stay tuned!";
+        }
+    </script>
+</body>
+</html>
